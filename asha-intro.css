@@ -1,0 +1,70 @@
+/* Asha's Kitchen logo intro — "Two homes, one table" */
+.ak-intro {
+  position: fixed; inset: 0; z-index: 9999; overflow: hidden;
+  -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent;
+  contain: strict;
+}
+.ak-intro.is-open { pointer-events: none; }
+/* nothing inside the intro shows until its images are loaded and the first frame is set */
+.ak-intro:not([data-ready]) > * { visibility: hidden; }
+.ak-intro svg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.ak-intro .ak-el { position: absolute; left: 0; top: 0; will-change: transform, opacity; transform-origin: 50% 50%; }
+.ak-intro img { display: block; width: 100%; height: 100%; -webkit-user-drag: none; }
+
+/* postcards */
+.ak-ph { background: #0f0f0f; box-shadow: 0 1.4vmin 3vmin -1.2vmin rgba(0, 0, 0, .55); }
+.ak-ph img { object-fit: cover; }
+.ak-ph span {
+  position: absolute; left: 0; top: calc(100% + .75em); white-space: nowrap;
+  font: 500 var(--ak-cap, 11px)/1 Jost, "Helvetica Neue", Arial, sans-serif; letter-spacing: .24em;
+  color: #f3ead3; opacity: .78;
+}
+.ak-side {
+  position: absolute; white-space: nowrap; will-change: opacity;
+  font: 600 var(--ak-side, 13px)/1 Jost, "Helvetica Neue", Arial, sans-serif; letter-spacing: .34em; color: #bf8d30;
+}
+
+/* plates */
+.ak-dish img { height: auto; filter: drop-shadow(0 1.1vmin 1.4vmin rgba(0, 0, 0, var(--ak-sh, .45))); }
+.ak-steam {
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 252, 240, .5), rgba(255, 252, 240, 0));
+  filter: blur(4px);
+}
+
+/* logo: one box, layers placed in percent of the 1280 x 546 artwork */
+.ak-logo .ak-cut { position: absolute; inset: 0; }
+.ak-logo .ak-cut > div { position: absolute; inset: 0; will-change: transform; }
+.ak-logo .ak-cut img { position: absolute; inset: 0; }
+.ak-logo .ak-green { opacity: 0; }
+.ak-logo .ak-swoosh { position: absolute; left: 15.9375%; top: 49.0842%; width: 76.25%; height: 46.1538%; }
+.ak-leaf img { height: auto; }
+
+/* before the intro has built itself: plain green, so the page never flashes */
+html.ak-wait::after { content: ""; position: fixed; inset: 0; z-index: 9998; background: var(--ak-cover, #1d3a1f); }
+html.ak-on, html.ak-wait { overflow: hidden; }
+html.ak-on [data-ak-logo], html.ak-wait [data-ak-logo] { opacity: 0; }
+
+/* "Around the world" */
+.ak-cv { position: absolute; left: 0; top: 0; }
+.ak-logo .ak-shine-halo { position: absolute; inset: 0; opacity: 0; filter: drop-shadow(0 0 .35em rgba(255, 236, 190, .95)) drop-shadow(0 0 1.2em rgba(255, 220, 150, .6)); font-size: 12px; }
+.ak-logo .ak-shine { position: absolute; inset: 0; overflow: hidden; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
+.ak-logo .ak-shine i { position: absolute; inset: -10% 0; will-change: transform; background: linear-gradient(100deg, rgba(255,255,255,0) 41%, #fffdf6 50%, rgba(255,255,255,0) 59%); }
+.ak-logo .ak-goldtxt { position: absolute; inset: 0; -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+  background: linear-gradient(172deg, #fff3c9 0%, #f0cd78 26%, #c8962f 48%, #f6dc93 66%, #b9862a 84%, #e9c46e 100%); }
+
+/* "Pure ghee" */
+.ak-city { position: absolute; left: 0; top: 0; white-space: nowrap; will-change: transform, opacity; opacity: 0;
+  font: 500 var(--ak-cap, 11px)/1 Jost, "Helvetica Neue", Arial, sans-serif; letter-spacing: .3em; color: #ecc977; text-shadow: 0 1px 6px rgba(0, 0, 0, .35); }
+.ak-archsvg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+
+/* "Every plate, from its own home" in gold */
+.ak-mem { -webkit-mask-size: 100% 100%; mask-size: 100% 100%; mix-blend-mode: luminosity; }
+.ak-mem img { object-fit: cover; filter: grayscale(1) contrast(1.12); }
+.ak-memlb { position: absolute; left: 0; top: 0; white-space: nowrap; will-change: transform, opacity; opacity: 0;
+  font: 500 var(--ak-cap, 12px)/1 Jost, "Helvetica Neue", Arial, sans-serif; letter-spacing: .32em; color: #173212; }
+.ak-seatlb { position: absolute; left: 0; top: 0; white-space: nowrap; will-change: transform, opacity; opacity: 0;
+  font: 600 calc(var(--ak-cap, 12px) * .82)/1 Jost, "Helvetica Neue", Arial, sans-serif; letter-spacing: .22em; color: #173212; }
+/* while the intro's pictures load: a softly breathing leaf instead of a still screen */
+html.ak-wait::before { content: ""; position: fixed; left: 50%; top: 50%; z-index: 9999; width: 46px; height: 46px; margin: -23px 0 0 -23px; background: url("img/logo/leaf.webp") center / contain no-repeat; opacity: 0; animation: akLeaf 1.6s ease-in-out .35s infinite; pointer-events: none; }
+@keyframes akLeaf { 0%, 100% { opacity: .25; transform: scale(.9); } 50% { opacity: .85; transform: scale(1.06); } }
